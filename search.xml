@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+  
+    
+    <entry>
+      <title>Butterfly添加侧边栏电子钟</title>
+      <link href="/c551739d/"/>
+      <url>/c551739d/</url>
+      
+        <content type="html"><![CDATA[<p>效果如下所示</p><p>   <img src="/img/clock.png" alt="时钟"></p><p>如果有安装店长的插件版侧边栏电子钟（与店长的电子钟冲突），在博客根目录[Blogroot]下打开终端，运行以下指令</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 卸载原版电子钟</span><br><span class="line">npm uninstall hexo-butterfly-clock</span><br></pre></td></tr></table></figure><p>安装插件,在博客根目录[Blogroot]下打开终端，运行以下指令：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-butterfly-clock-anzhiyu --save</span><br></pre></td></tr></table></figure><p>添加配置信息，以下为写法示例在站点配置文件_config.yml或者主题配置文件_config.butterfly.yml中添加</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"># electric_clock</span><br><span class="line"># see https://anzhiy.cn/posts/fc18.html</span><br><span class="line">electric_clock:</span><br><span class="line">  enable: true # 开关</span><br><span class="line">  priority: 5 #过滤器优先权</span><br><span class="line">  enable_page: all # 应用页面</span><br><span class="line">  exclude:</span><br><span class="line">  # - /posts/</span><br><span class="line">  # - /about/</span><br><span class="line">  layout: # 挂载容器类型</span><br><span class="line">    type: class</span><br><span class="line">    name: sticky_layout</span><br><span class="line">    index: 0</span><br><span class="line">  loading: https://cdn.cbd.int/hexo-butterfly-clock-anzhiyu/lib/loading.gif #加载动画自定义</span><br><span class="line">  clock_css: https://cdn.cbd.int/hexo-butterfly-clock-anzhiyu/lib/clock.min.css</span><br><span class="line">  clock_js: https://cdn.cbd.int/hexo-butterfly-clock-anzhiyu/lib/clock.min.js</span><br><span class="line">  ip_api: https://widget.qweather.net/simple/static/js/he-simple-common.js?v=2.0</span><br><span class="line">  qweather_key: # 和风天气key</span><br><span class="line">  gaud_map_key: # 高得地图web服务key</span><br><span class="line">  default_rectangle: false # 开启后将一直显示rectangle位置的天气，否则将获取访问者的地理位置与天气</span><br><span class="line">  rectangle: 112.982279,28.19409 # 获取访问者位置失败时会显示该位置的天气，同时该位置为开启default_rectangle后的位置</span><br></pre></td></tr></table></figure><p>其中qweather_key 和gaud_map_key 最好自己去申请对应的 api key，默认使用我自己的，可能会被限制，不保证可靠性。</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> hexo </tag>
+            
+            <tag> Butterfly添加侧边栏电子钟 </tag>
+            
+            <tag> 主题 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>公告栏计时器</title>
+      <link href="/67edc204/"/>
+      <url>/67edc204/</url>
+      
+        <content type="html"><![CDATA[<p>操作</p><p>在\themes\butterfly\source\js目录下创建一个timing.js文件，并将如下代码写入该文件：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">let oSpan = document.getElementsByTagName(&quot;timing&quot;)[0];</span><br><span class="line">let localhostTime = new Date();//获取页面打开的时间</span><br><span class="line">function tow(n) &#123;</span><br><span class="line">    return n &gt;= 0 &amp;&amp; n &lt; 10 ? &#x27;0&#x27; + n : &#x27;&#x27; + n;</span><br><span class="line">&#125;</span><br><span class="line">setInterval(function () &#123;</span><br><span class="line">    let goTime = new Date();//获取动态时间</span><br><span class="line">    let diffTime = goTime.getTime() - localhostTime.getTime();</span><br><span class="line">    var second = Math.floor(diffTime / 1000);//未来时间距离现在的秒数</span><br><span class="line">    var day = Math.floor(second / 86400);//整数部分代表的是天；一天有24*60*60=86400秒 ；</span><br><span class="line">    second = second % 86400;//余数代表剩下的秒数；</span><br><span class="line">    var hour = Math.floor(second / 3600);//整数部分代表小时；</span><br><span class="line">    second %= 3600; //余数代表 剩下的秒数；</span><br><span class="line">    var minute = Math.floor(second / 60);</span><br><span class="line">    second %= 60;</span><br><span class="line">    // var str = tow(day) + &#x27;&lt;span class=&quot;time&quot;&gt;天&lt;/span&gt;&#x27;</span><br><span class="line">    //     + tow(hour) + &#x27;&lt;span class=&quot;time&quot;&gt;小时&lt;/span&gt;&#x27;</span><br><span class="line">    //     + tow(minute) + &#x27;&lt;span class=&quot;time&quot;&gt;分钟&lt;/span&gt;&#x27;</span><br><span class="line">    //     + tow(second) + &#x27;&lt;span class=&quot;time&quot;&gt;秒&lt;/span&gt;&#x27;;</span><br><span class="line">    var str = tow(hour) + &#x27;&lt;span class=&quot;time&quot;&gt;小时&lt;/span&gt;&#x27;</span><br><span class="line">        + tow(minute) + &#x27;&lt;span class=&quot;time&quot;&gt;分钟&lt;/span&gt;&#x27;</span><br><span class="line">        + tow(second) + &#x27;&lt;span class=&quot;time&quot;&gt;秒&lt;/span&gt;&#x27;;</span><br><span class="line">    oSpan.innerHTML = &quot;您已浏览&quot; + str;</span><br><span class="line">&#125;, 1000)</span><br><span class="line"></span><br></pre></td></tr></table></figure><p>找到主题配置文件_config.butterfly.yml，在inject的bottom处引入该js文件：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">inject:</span><br><span class="line">  bottom:</span><br><span class="line">  - &lt;script src=&quot;/js/timing.js&quot;&gt;&lt;/script&gt; # 公告栏计时器插件</span><br></pre></td></tr></table></figure><p>在\themes\butterfly\layout\includes\widget目录下找到card_announcement.pug文件，添加timing（注意缩进）：</p><p>重新部署，启动，就可以看到效果啦。</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> hexo </tag>
+            
+            <tag> 计时器 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>历史上的今天</title>
+      <link href="/72cfe8e6/"/>
+      <url>/72cfe8e6/</url>
+      
+        <content type="html"><![CDATA[<p>NPM 插件安装的部署方法：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">npm i hexo-history-calendar --save</span><br><span class="line"></span><br><span class="line"># 或者</span><br><span class="line"></span><br><span class="line">cnpm i hexo-history-calendar --save</span><br></pre></td></tr></table></figure><p>注意，一定要加–save，不然本地预览的时候可能不会显示！！！</p><p>新增网站根目录_config 配置项(不是主题的)：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">history_calendar:</span><br><span class="line">  priority: 4</span><br><span class="line">  enable: true</span><br><span class="line">  enable_page: all</span><br><span class="line">  layout:</span><br><span class="line">    type: class</span><br><span class="line">    name: sticky_layout</span><br><span class="line">    index: 0</span><br><span class="line">  temple_html: &#x27;&lt;div class=&quot;card-widget card-history&quot;&gt;&lt;div class=&quot;card-content&quot;&gt;&lt;div class=&quot;item-headline&quot;&gt;&lt;i class=&quot;fas fa-clock fa-spin&quot;&gt;&lt;/i&gt;&lt;span&gt;那年今日&lt;/span&gt;&lt;/div&gt;&lt;div id=&quot;history-baidu&quot; style=&quot;height: 100px;overflow: hidden&quot;&gt;&lt;div class=&quot;history_swiper-container&quot; id=&quot;history-container&quot; style=&quot;width: 100%;height: 100%&quot;&gt;&lt;div class=&quot;swiper-wrapper&quot; id=&quot;history_container_wrapper&quot; style=&quot;height:20px&quot;&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&#x27;</span><br></pre></td></tr></table></figure><p>enable<br>参数：true&#x2F;false<br>含义：是否开启插件</p><p>enable_page<br>参数：all<br>含义：路由地址，all 代表全局开启。如 &#x2F; 代表主页。</p><p>priority<br>参数：1<br>含义：插件的叠放顺序，数字越大，叠放约靠前。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">history_calendar:</span><br><span class="line">  enable: true</span><br><span class="line">  priority: 4 # 这里是参数</span><br></pre></td></tr></table></figure><p>hexo 三连<br>执行 hexo 三连</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo clean &amp;&amp; hexo g &amp;&amp; hexo s</span><br></pre></td></tr></table></figure><p>已经成功部署</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> hexo </tag>
+            
+            <tag> 历史上的今天 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>添加今日诗词</title>
+      <link href="/830fe511/"/>
+      <url>/830fe511/</url>
+      
+        <content type="html"><![CDATA[<p>组件样式<br>   <img src="/img/%E8%AF%97%E8%AF%8D.png" alt="诗词"></p><h3 id="安装教程"><a href="#安装教程" class="headerlink" title="安装教程"></a>安装教程</h3><p>创建组件<br>主题新建themes&#x2F;butterfly&#x2F;layout&#x2F;includes&#x2F;widget&#x2F;card_poem.pug，内容如下</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">#card-poem.card-widget</span><br><span class="line">    #poem_sentence</span><br><span class="line">    #poem_info</span><br><span class="line">        #poem_dynasty</span><br><span class="line">        #poem_author</span><br><span class="line">script(src=&#x27;https://cdn.jsdelivr.net/npm/js-heo@1.0.11/poem/jinrishici.js&#x27;, charset=&#x27;utf-8&#x27;)</span><br><span class="line">script(type=&#x27;text/javascript&#x27;).</span><br><span class="line">  jinrishici.load(function(result) &#123;</span><br><span class="line">  var sentence = document.querySelector(&quot;#poem_sentence&quot;)</span><br><span class="line">  var author = document.querySelector(&quot;#poem_author&quot;)</span><br><span class="line">  var dynasty = document.querySelector(&quot;#poem_dynasty&quot;)</span><br><span class="line"></span><br><span class="line">  var sentenceText = result.data.content</span><br><span class="line">  sentenceText = sentenceText.substr(0, sentenceText.length - 1);</span><br><span class="line">  sentence.innerHTML = sentenceText</span><br><span class="line">  dynasty.innerHTML = result.data.origin.dynasty</span><br><span class="line">  author.innerHTML = result.data.origin.author + &#x27;《&#x27; + result.data.origin.title + &#x27;》&#x27;</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure><h3 id="引入组件"><a href="#引入组件" class="headerlink" title="引入组件"></a>引入组件</h3><p>在themes&#x2F;butterfly&#x2F;layout&#x2F;includes&#x2F;widget&#x2F;index.pug中你需要的位置添加以下内容</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">!=partial(&#x27;includes/widget/card_poem&#x27;, &#123;&#125;, &#123;cache: true&#125;)</span><br></pre></td></tr></table></figure><p>填写示例，可以在俩个<br>   <img src="/img/shili.png" alt="诗词"></p><h3 id="引入css"><a href="#引入css" class="headerlink" title="引入css"></a>引入css</h3><p>如果没有引用过heoMainColor.css需要引用</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/npm/js-heo@1.0.11/mainColor/heoMainColor.css&quot;&gt;</span><br></pre></td></tr></table></figure><p>引用主css </p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/npm/js-heo@1.0.11/poem/poem.css&quot;&gt;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> hexo </tag>
+            
+            <tag> 今日诗词 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>字数统计</title>
+      <link href="/395bbd0/"/>
+      <url>/395bbd0/</url>
+      
+        <content type="html"><![CDATA[<h3 id="字数统计"><a href="#字数统计" class="headerlink" title="字数统计"></a>字数统计</h3><p>要为 AnZhiYu 配上字数统计特性, 你需要如下几个步骤:<br>打开 hexo 工作目录</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-wordcount --save or yarn add hexo-wordcount</span><br></pre></td></tr></table></figure><p>修改 主题配置文件:</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">wordcount:</span><br><span class="line">  enable: true</span><br><span class="line">  post_wordcount: true</span><br><span class="line">  min2read: true</span><br><span class="line">  total_wordcount: true</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> hexo </tag>
+            
+            <tag> 字数统计 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>搜索</title>
+      <link href="/43934f6d/"/>
+      <url>/43934f6d/</url>
+      
+        <content type="html"><![CDATA[<h3 id="搜索功能"><a href="#搜索功能" class="headerlink" title="搜索功能"></a>搜索功能</h3><p>安装插件</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-generator-search --save</span><br></pre></td></tr></table></figure><p>可以在根 _config.yml 中配置这个插件</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"> ##Local Search本地搜索</span><br><span class="line">search:</span><br><span class="line">path: search.xml</span><br><span class="line">field: post</span><br><span class="line">format: html</span><br><span class="line">limit: 10000</span><br></pre></td></tr></table></figure><p>修改 主题配置文件</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">local_search:</span><br><span class="line">  enable: true</span><br><span class="line">  preload: true</span><br><span class="line">  CDN:</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> hexo </tag>
+            
+            <tag> 搜索 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>hexo本地环境配置</title>
+      <link href="/f873d6e0/"/>
+      <url>/f873d6e0/</url>
+      
+        <content type="html"><![CDATA[<p>Hexo本地环境配置主要包括安装Node.js、Git，全局安装Hexo CLI，并初始化项目。以下是详细步骤。</p><p>‌1.安装与验证基础环境：‌ 首先安装Node.js（推荐LTS版本，如v16.x以上）和Git。安装后，在终端验证版本：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">node -v  # 检查Node.js版本</span><br><span class="line">npm -v   # 检查npm版本</span><br><span class="line">git --version  # 检查Git版本</span><br></pre></td></tr></table></figure><p>若未安装，可通过Node版本管理器（如nvm）管理Node.js版本，或从官网下载安装包；Git需从官网获取安装程序。‌12</p><p>‌2.全局安装Hexo CLI：‌ 使用npm全局安装Hexo命令行工具：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></table></figure><p>安装后，可通过hexo version验证安装是否成功。‌</p><p>‌3.初始化Hexo项目：‌ 创建项目目录并初始化：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo init my-blog  # 创建名为my-blog的项目</span><br><span class="line">cd my-blog         # 进入项目目录</span><br><span class="line">npm install        # 安装依赖包</span><br></pre></td></tr></table></figure><p>项目初始化后，核心目录包括：</p><pre><code>_config.yml：主配置文件source/_posts/：存放Markdown文章themes/：主题目录package.json：项目依赖配置</code></pre><p>4.本地服务器启动与常见问题处理：‌ 启动本地服务器预览博客：  </p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo server  # 或 hexo s</span><br></pre></td></tr></table></figure><p>访问 <a href="http://localhost:4000/">http://localhost:4000</a> 查看效果。若命令未识别，可尝试使用 npx hexo … 替代。常见问题包括：</p><pre><code>‌命令无法识别‌：检查Node.js和npm是否全局安装，或使用npx前缀。‌端口占用‌：修改端口为其他值（如hexo server -p 4001）。‌依赖安装失败‌：清除npm缓存（npm cache clean --force）或检查网络。</code></pre>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> hexo </tag>
+            
+            <tag> 配置 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>安知鱼主题配置</title>
+      <link href="/505985a3/"/>
+      <url>/505985a3/</url>
+      
+        <content type="html"><![CDATA[<p>搭建 Hexo 博客<br>如果你还没有 Hexo 博客，请按照 Hexo 官方文档 进行安装、建站。</p><h3 id="主题安装"><a href="#主题安装" class="headerlink" title="主题安装"></a>主题安装</h3><p>方式一(Github 推荐):</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone -b main https://github.com/anzhiyu-c/hexo-theme-anzhiyu.git themes/anzhiyu</span><br></pre></td></tr></table></figure><p>如遇安装不上可以使用以下url代理安装</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone -b main https://ghproxy.com/https://github.com/anzhiyu-c/hexo-theme-anzhiyu.git themes/anzhiyu</span><br></pre></td></tr></table></figure><p>方式二(Release 推荐):</p><p>下载 最新 release 版本 解压到 themes 目录，并将解压出的文件夹重命名为 anzhiyu。</p><p>方式三(npm安装):</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i hexo-theme-anzhiyu</span><br></pre></td></tr></table></figure><p>此方法只支持 Hexo 5.0.0 以上版本 通过 npm 安装并不会在 themes 里生成主题文件夹，而是在 node_modules 里生成</p><p>测试版Dev</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone -b dev https://github.com/anzhiyu-c/hexo-theme-anzhiyu.git themes/anzhiyu</span><br></pre></td></tr></table></figure><p>测试版可能存在 bug，追求稳定的请安装稳定版</p><h3 id="应用主题"><a href="#应用主题" class="headerlink" title="应用主题"></a>应用主题</h3><p>打开 Hexo 根目录下的 config.yml, 找到以下配置项，把主题改为anzhiyu</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># Extensions</span><br><span class="line">## Plugins: https://hexo.io/plugins/</span><br><span class="line">## Themes: https://hexo.io/themes/</span><br><span class="line">theme: anzhiyu</span><br></pre></td></tr></table></figure><h3 id="安装-pug-和-stylus-渲染插件"><a href="#安装-pug-和-stylus-渲染插件" class="headerlink" title="安装 pug 和 stylus 渲染插件"></a>安装 pug 和 stylus 渲染插件</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-renderer-pug hexo-renderer-stylus --save</span><br></pre></td></tr></table></figure><p>无法安装可以使用cnpm进行安装</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-renderer-pug hexo-renderer-stylus --save --registry=http://registry.npmmirror.com</span><br></pre></td></tr></table></figure><h3 id="覆盖配置"><a href="#覆盖配置" class="headerlink" title="覆盖配置"></a>覆盖配置</h3><p>覆盖配置可以使主题配置放置在 anzhiyu 目录之外，避免在更新主题时丢失自定义的配置。</p><p>通过 Npm 安装主题的用户可忽略，其他用户建议学习使用。</p><pre><code>macos/linux 在博客根目录运行</code></pre><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp -rf ./themes/anzhiyu/_config.yml ./_config.anzhiyu.yml</span><br></pre></td></tr></table></figure><p>windows 复制&#x2F;themes&#x2F;anzhiyu&#x2F;_config.yml此文件到 hexo 根目录，并重命名为_config.anzhiyu.yml</p><p>以后如果修改任何主题配置，都只需修改 _config.anzhiyu.yml 的配置即可。</p><p>注意：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">只要存在于 _config.anzhiyu.yml 的配置都是高优先级，修改原 _config.yml 是无效的。</span><br><span class="line">每次更新主题可能存在配置变更，请注意更新说明，可能需要手动对 _config.anzhiyu.yml 同步修改。</span><br><span class="line">想查看覆盖配置有没有生效，可以通过 hexo g --debug 查看命令行输出。</span><br><span class="line">如果想将某些配置覆盖为空，注意不要把主键删掉，不然是无法覆盖的    </span><br></pre></td></tr></table></figure><h3 id="本地启动-hexo"><a href="#本地启动-hexo" class="headerlink" title="本地启动 hexo"></a>本地启动 hexo</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo cl</span><br><span class="line">hexo g</span><br><span class="line">hexo s</span><br></pre></td></tr></table></figure><p>此时就能在看到效果了。</p><h3 id="升级方法"><a href="#升级方法" class="headerlink" title="升级方法"></a>升级方法</h3><p>方式一</p><p>适用于通过 Github 或 Release 压缩包主题，且没有自行修改任何代码的情况。<br>先将原文件夹重命名为别的名称，例如 anzhiyu-bkp，用于升级失败进行回退；<br>选择自己的安装方式升级</p><p>Github：重新重新执行安装命令即可</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone -b main https://github.com/anzhiyu-c/hexo-theme-anzhiyu.git themes/anzhiyu</span><br></pre></td></tr></table></figure><p>Release：按照安装步骤，下载 release 并解压重命名为 anzhiyu；</p><p>比对升级后的配置文件_config.yml，如果某些配置发生了变化（改名或弃用），release 的说明里会特别提示或给出配置文件版本对比diff，同步修改原配置文件即可。</p><p>方式二</p><p>适用于通过 Npm 安装主题。<br>在博客目录下执行命令：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm update --save hexo-theme-anzhiyu</span><br></pre></td></tr></table></figure><p>比对升级后的配置文件_config.yml,如果某些配置发生了变化（改名或弃用），release 的说明里会特别提示或给出配置文件版本对比diff，同步修改原配置文件即可。</p><p>方式三</p><p>全量更新：删除theme&#x2F;anzhiyu文件夹，然后重新执行安装命令即可。</p><p>比对升级后的配置文件_config.yml,如果某些配置发生了变化（改名或弃用），release 的说明里会特别提示或给出配置文件版本对比diff，同步修改原配置文件即可。</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> hexo </tag>
+            
+            <tag> 主题配置 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>永久链接</title>
+      <link href="/9e096d84/"/>
+      <url>/9e096d84/</url>
+      
+        <content type="html"><![CDATA[<h3 id="永久链接"><a href="#永久链接" class="headerlink" title="永久链接"></a>永久链接</h3><p>   Hexo 默认的永久链接格式目录层级复杂，深度大，不仅不利SEO，也不美观!</p><p>Hexo 默认的永久链接配置为:year&#x2F;:month&#x2F;:day&#x2F;:title&#x2F;，这样生成的链接会成为一个四级目录，对于搜索引擎来说并不是很友好。<br>这里介绍一个 Hexo 插件 hexo-abbrlink,它能将 Hexo 生成的永久链接转化为一个固定的随机值，极大的缩短了永久链接的长度。<br>一旦生成一个随机值，之后对文章的标题或者时间进行任何修改，这个随机的 abbrlink 是不会发生任何变化的，也为 Hexo 的维护提供了便利。<br>HEXO默认的文章链接形式为domain&#x2F;year&#x2F;month&#x2F;day&#x2F;postname，默认就是四级url，并且可能造成url过长，对搜索引擎是不太不友好</p><h3 id="安装配置"><a href="#安装配置" class="headerlink" title="安装配置"></a>安装配置</h3><p>1.安装使用abbrlink</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-abbrlink --save</span><br></pre></td></tr></table></figure><p>2.配置.config.xml<br>以下设置均修改博客根目录下的配置文件</p><p>修改默认的永久链接参数</p><p>   我们可以改成domain&#x2F;postname 的形式。编辑站点的_config.yml文件，修改其中的permalink字段改为permalink: :title.html即可</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># URL</span><br><span class="line">## Set your site url here. For example, if you use GitHub Page, set url as &#x27;https://username.github.io/project&#x27;</span><br><span class="line">url: https://blog.lansoo.com  # 修改此处为实际的网站地址</span><br><span class="line">permalink: :permalink        # 修改此处</span><br><span class="line">permalink_defaults:</span><br><span class="line">pretty_urls:</span><br><span class="line">  trailing_index: false# 设置 false 以删除「页面」永久链接结尾的&#x27;index.html&#x27;部分</span><br><span class="line">  trailing_html: false # 设置 false 以删除「文章」永久链接结尾的&#x27;.html&#x27;部分</span><br></pre></td></tr></table></figure><h3 id="配置文件的-permalink-字段，比如"><a href="#配置文件的-permalink-字段，比如" class="headerlink" title="配置文件的 permalink: 字段，比如"></a>配置文件的 permalink: 字段，比如</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">permalink: posts/:abbrlink/  #文章结尾不带 .html</span><br></pre></td></tr></table></figure><p>或者<br>PLAINTEXT</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">permalink: posts/:abbrlink.html  #文章结尾带 .html</span><br></pre></td></tr></table></figure><p>3.hexo-abbrlink插件配置<br>在 Hexo 的配置文件-config.xml里增加</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"> # hexo-abbrlink</span><br><span class="line">abbrlink:</span><br><span class="line">  alg: crc32      #支持crc16和crc32算法（默认crc16）</span><br><span class="line">  rep: hex        #支持dec和hex值（默认dec）</span><br><span class="line">  drafts: false   #(true)Process draft,(false)Do not process draft. false(default) </span><br><span class="line">  # Generate categories from directory-tree</span><br><span class="line">  # depth: the max_depth of directory-tree you want to generate, should &gt; 0</span><br><span class="line">  auto_category:</span><br><span class="line">     enable: true  #true(default)</span><br><span class="line">     depth:        #3(default)</span><br><span class="line">     over_write: false </span><br><span class="line">  auto_title: false #enable auto title, it can auto fill the title by path</span><br><span class="line">  auto_date: false #enable auto date, it can auto fill the date by time today</span><br><span class="line">  force: false #enable force mode,in this mode, the plugin will ignore the cache, and calc the abbrlink for every post even it already had abbrlink.</span><br></pre></td></tr></table></figure><h3 id="4-参数说明"><a href="#4-参数说明" class="headerlink" title="4.参数说明"></a>4.参数说明</h3><p>   url: 这是你博客的网址。例如，如果你使用GitHub Pages服务，你需要将这个值设置为你的GitHub Pages的URL。</p><p>   permalink: 这是文章的永久链接格式。:abbrlink.html 是使用 hexo-abbrlink 插件生成的短链接格式。</p><p>   permalink_defaults: 这个部分通常用来定义永久链接的默认参数。</p><p>   pretty_urls: 这个部分用来定义URL的美化设置。</p><p>   trailing_index: 设置为 true 时，访问 &#x2F;index.html 会重定向到不带 index.html 的URL。</p><p>   trailing_html: 设置为 true 时，访问 .html 文件会重定向到不带 .html 的URL。</p><p>   abbrlink: 这是 hexo-abbrlink 插件的配置部分。</p><p>   alg: 指定生成短链接时使用的算法，可以是 crc16 或 crc32。</p><p>   rep: 指定算法结果的表示方式，可以是 dec（十进制）或 hex（十六进制）。</p><p>   drafts: 是否对草稿进行处理。</p><p>   auto_category: 自动根据文章所在的目录结构生成分类。</p><p>   enable: 是否启用自动分类。</p><p>   depth: 分类的最大深度。</p><p>   over_write: 是否覆盖已有的分类。</p><p>   auto_title: 是否启用自动标题。</p><p>   auto_date: 是否启用自动日期。</p><p>   force: 是否启用强制模式，忽略缓存。</p><h3 id="格式生成"><a href="#格式生成" class="headerlink" title="格式生成"></a>格式生成</h3><p>默认情况下，在新建文章后，abbrlink 插件会自动使用算法生成唯一的永久链接，比如</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#crc16 &amp; hex</span><br><span class="line">https://blog.lansoo.com/posts/66c8.html</span><br><span class="line"># crc16 &amp; dec</span><br><span class="line">https://blog.lansoo.com/posts/65535.html</span><br><span class="line"># crc32 &amp; hex</span><br><span class="line">https://blog.lansoo.com/posts/8ddf18fb.html</span><br><span class="line"># crc32 &amp; dec</span><br><span class="line">https://blog.lansoo.com/posts/1690090958.html</span><br></pre></td></tr></table></figure><p>配置完成后，重新部署hexo</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo cl; hexo g; hexo d</span><br></pre></td></tr></table></figure><h3 id="Hexo免插件的办法"><a href="#Hexo免插件的办法" class="headerlink" title="Hexo免插件的办法"></a>Hexo免插件的办法</h3><p>也可以在文章的 front-matter 部分手动填写 abbrlink 字段的值</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: 优化 Hexo 的永久链接</span><br><span class="line">toc: true</span><br><span class="line">abbrlink: hexo-permalinks #注意这部分</span><br><span class="line">date: 2023-08-08 22:22:22</span><br><span class="line">---</span><br></pre></td></tr></table></figure><p>Hexo 根目录下的 scaffolds 文件夹中的 post.md 文件，并在 front-matter 部分新增字段 permalink: &#x2F;posts&#x2F;</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">title: &#123;&#123; title &#125;&#125;</span><br><span class="line">date: &#123;&#123; date &#125;&#125;</span><br><span class="line">updated:</span><br><span class="line">categories: </span><br><span class="line">tags:</span><br><span class="line">toc: true</span><br><span class="line">permalink: /posts/</span><br></pre></td></tr></table></figure><p>每次新建文章后在 &#x2F;posts&#x2F; 后加上自定义的格式就行了，这里的 &#x2F;posts&#x2F; 就是我想对所有文章的一个固定路径，相当于所有文章都是在 &#x2F;posts&#x2F; 文件夹下，当然也可以把它改成你喜欢的其他的路径</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> hexo </tag>
+            
+            <tag> 永久链接 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+  
+  
+</search>
